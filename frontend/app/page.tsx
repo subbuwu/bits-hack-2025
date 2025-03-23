@@ -1,7 +1,7 @@
-'use client'
+'use client';
 import SpecialBtn from "@/components/ui/special-btn";
 import Navbar from "@/components/Navbar";
-import { SignIn, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
@@ -9,7 +9,7 @@ export default function Home() {
   const {user} = useUser();
   const handleClick = () => {
     if(!user) {
-      return <SignIn/>
+      router.push('/signup');
     } else {
       router.push('/dashboard');
     }

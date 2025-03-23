@@ -21,6 +21,7 @@ import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { useUser } from "@clerk/nextjs";
 import { makeAIAssistantCall } from "@/services";
+import AIChat from "./AIChat";
 
 // Sample health tips
 const healthTips = [
@@ -63,8 +64,9 @@ export default function DashboardHome() {
   const [currentTipIndex, setCurrentTipIndex] = useState<number>(0);
   const [greeting, setGreeting] = useState<string>("Good day");
   const [isCalling,setIsCalling] = useState<boolean>(false);
-
+  const [showChat, setShowChat] = useState<boolean>(false);
   const {user} = useUser()
+
   console.log(user)
   useEffect(() => {
     // Set appropriate greeting based on time of day
@@ -85,7 +87,7 @@ export default function DashboardHome() {
   
   
   const getNextTip = () => {
-    setCurrentTipIndex((prevIndex) => (prevIndex + 1) % healthTips.length);
+    setCurrentTipIndex((prevIndex: number) => (prevIndex + 1) % healthTips.length);
   };
 
   const handleAICall = async () => {
@@ -137,9 +139,12 @@ export default function DashboardHome() {
                         whileHover={{ scale: 1.03 }}
                         whileTap={{ scale: 0.98 }}
                       >
-                        <Button className="w-full px-12 py-6 cursor-pointer text-lg font-medium bg-green-500 hover:bg-green-600 rounded-2xl shadow-md">
+                        <Button 
+                          className="w-full px-12 py-6 cursor-pointer text-lg font-medium bg-green-500 hover:bg-green-600 rounded-2xl shadow-md"
+                          onClick={() => setShowChat(!showChat)}
+                        >
                           <MessageCircle className="mr-3 h-6 w-6" />
-                          Chat with AI (WhatsApp)
+                          {showChat ? 'Close Chat' : 'Chat with AI'}
                         </Button>
                       </motion.div>
                     </div>
@@ -151,14 +156,17 @@ export default function DashboardHome() {
             </Card>
           </motion.div>
           
-          {/* Upcoming Reminders */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            
-          </motion.div>
+          {/* AI Chat Component */}
+          {showChat && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <AIChat />
+            </motion.div>
+          )}
         </div>
         
         {/* Right Column - Health Tips */}
