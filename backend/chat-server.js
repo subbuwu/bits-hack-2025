@@ -3,7 +3,7 @@ import { createServer } from 'http';
 import { WebSocketServer } from 'ws';
 import axios from 'axios';
 import dotenv from 'dotenv';
-
+import cors from 'cors';
 dotenv.config();
 
 // Check if API key exists
@@ -22,6 +22,12 @@ const app = express();
 const port = 3001;
 const server = createServer(app);
 const wss = new WebSocketServer({ server });
+
+app.use(cors({
+    // allow all origins
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+}));
 
 const API_KEY = process.env.MISTRAL_API_KEY;
 const AGENT_ID = process.env.MISTRAL_AGENT_ID;
