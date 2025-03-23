@@ -32,7 +32,7 @@ export default function AIChat() {
     if (wsRef.current?.readyState === WebSocket.OPEN || isConnectingRef.current) return;
 
     isConnectingRef.current = true;
-    const ws = new WebSocket('ws://bits-hack-2025-production.up.railway.app');
+    const ws = new WebSocket('wss://bits-hack-2025-production.up.railway.app');
 
     ws.onopen = () => {
       console.log('Connected to WebSocket server');
