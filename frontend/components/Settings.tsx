@@ -12,7 +12,7 @@ import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-export default function SettingsPage() {
+export default function SettingsScreen() {
   const [medications, setMedications] = useState([
     { name: "Lisinopril", dosage: "10mg", frequency: "Once daily", time: "8:00 AM" },
     { name: "Metformin", dosage: "500mg", frequency: "Twice daily", time: "8:00 AM, 8:00 PM" },

@@ -1,7 +1,19 @@
+'use client'
 import SpecialBtn from "@/components/ui/special-btn";
 import Navbar from "@/components/Navbar";
+import { SignIn, useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter()
+  const {user} = useUser();
+  const handleClick = () => {
+    if(!user) {
+      return <SignIn/>
+    } else {
+      router.push('/dashboard');
+    }
+  }
   return (
     <div>
     <Navbar/>
@@ -13,7 +25,7 @@ export default function Home() {
         <p className="text-xl text-gray-700">ElderCare AI provides timely medication reminders, health tips, and symptom guidance through the familiar interface of WhatsApp — making healthcare management effortless for seniors.</p>
 
         <div className="space-x-2">
-          <button className="px-12 py-2.5 cursor-pointer rounded-full tracking-widest uppercase font-bold bg-blue-400 text-white hover:bg-blue-700 transition duration-200">
+          <button className="px-12 py-2.5 cursor-pointer rounded-full tracking-widest uppercase font-bold bg-blue-400 text-white hover:bg-blue-700 transition duration-200" onClick={handleClick}>
             Get Started
           </button>
           <button className="shadow-[inset_0_0_0_2px_#616467] text-black px-12 py-2.5 cursor-pointer rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200">

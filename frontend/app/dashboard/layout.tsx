@@ -4,14 +4,15 @@ import { DashboardSidebar } from "@/components/DashboardSidebar";
 import { 
   SidebarProvider, 
   SidebarInset,
-  SidebarTrigger 
 } from "@/components/ui/sidebar";
 import { SignedIn, SignedOut, UserButton, SignInButton } from "@clerk/nextjs";
-import { BellRing, Heart, MessageCircle } from "lucide-react";
+import { BellRing, Heart, MessageCircle, Menu } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Prevent hydration mismatch
   useEffect(() => {
@@ -24,55 +25,41 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   return (
     <SidebarProvider>
-      <div className="min-h-screen bg-background">
-        <DashboardSidebar />
+      <div className="min-h-screen bg-background flex w-full">
+        {/* Mobile Menu Button and Navbar */}
+        <div className={`md:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 px-4 py-2 flex items-center justify-between ${
+          isMobileMenuOpen ? 'hidden' : 'block'
+        }`}>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="hover:bg-purple-700 hover:text-white bg-purple-500 text-white"
+            onClick={() => setIsMobileMenuOpen(true)}
+          >
+            <Menu className="h-6 w-6" />
+          </Button>
+          <div className="flex items-center gap-2">
+            <UserButton afterSignOutUrl="/" />
+          </div>
+        </div>
+
+        {/* Sidebar with mobile responsiveness */}
+        <div className={`fixed inset-y-0 left-0 z-40 transform transition-transform duration-300 ease-in-out md:relative md:translate-x-0 ${
+          isMobileMenuOpen ? 'translate-x-0 ' : '-translate-x-full'
+        }`}>
+          <DashboardSidebar onClose={() => setIsMobileMenuOpen(false)} />
+        </div>
+
+        {/* Overlay for mobile */}
+        {isMobileMenuOpen && (
+          <div 
+            className="fixed inset-0 bg-black/50 z-30 md:hidden"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+        )}
+
         <SidebarInset>
-          <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background px-6">
-            <div className="flex-1">
-            <SignedIn>
-            <div className='flex items-center space-x-1 bg-white/90 rounded-full px-2 py-1 shadow-sm'>
-              {/* Notifications */}
-              <button className='relative p-2 text-neutral-600 hover:text-[#9267F8] hover:bg-white rounded-full transition-colors duration-200'>
-                <BellRing size={20} />
-                <span className='absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full'></span>
-              </button>
-              
-              {/* Messages */}
-              <button className='p-2 text-neutral-600 hover:text-[#9267F8] hover:bg-white rounded-full transition-colors duration-200'>
-                <MessageCircle size={20} />
-              </button>
-              
-              {/* Favorites */}
-              <button className='p-2 text-neutral-600 hover:text-[#9267F8] hover:bg-white rounded-full transition-colors duration-200'>
-                <Heart size={20} />
-              </button>
-              
-              {/* User Profile */}
-              <div className='pl-2 border-l border-neutral-200'>
-                <UserButton 
-                  afterSignOutUrl="/"
-                  appearance={{
-                    elements: {
-                      avatarBox: "h-9 w-9"
-                    }
-                  }}
-                />
-              </div>
-            </div>
-          </SignedIn>
-          
-          <SignedOut>
-            <div className='flex items-center space-x-3 bg-white/90 rounded-full px-3 py-1 shadow-sm'>
-              <SignInButton signUpForceRedirectUrl={process.env.NEXT_PUBLIC_CLERK_SIGN_IN_FORCE_REDIRECT_URL}>  
-                <button className="px-6 py-2 cursor-pointer rounded-full font-medium bg-gradient-to-r from-[#a071f9] to-[#573c9d] text-white hover:shadow-lg transition duration-200">
-                  Sign In
-                </button>
-              </SignInButton>
-            </div>
-          </SignedOut>
-            </div>
-          </header>
-          <main className="flex-1 p-6">
+          <main className="flex-1 w-full p-6 md:mt-0 mt-10">
             {children}
           </main>
         </SidebarInset>
