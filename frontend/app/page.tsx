@@ -86,9 +86,10 @@ export default function Home() {
               </button>
 
           </SignedIn>
-              <SignedOut>
+
+          <SignedOut>
               <SignUpButton>  
-                <button className="px-12 py-2 cursor-pointer rounded-full font-bold bg-gradient-to-r from-[#a071f9] to-[#573c9d] text-white hover:shadow-lg hover:scale-105 transition duration-200">
+                <button className="relative z-50 px-12 py-2 cursor-pointer rounded-full font-bold bg-gradient-to-r from-[#a071f9] to-[#573c9d] text-white hover:shadow-lg hover:scale-105 transition duration-200">
                 Sign Up
                 </button>
               </SignUpButton>
