@@ -5,6 +5,7 @@ import { useUser } from '@clerk/nextjs';
 import { useEffect, useState } from 'react';
 
 export type Reminder = {
+  id: string,
   clerk_id: string,
   created_at: string,
   medication_title: string
@@ -26,9 +27,8 @@ export default function RemindersPage() {
       try {
         const { data, error } = await supabase
           .from('reminders')
-          .select('*')
-          .eq('clerk_id', user.id)
-          .order('created_at', { ascending: false });
+          .select()
+          .eq('clerk_id', user.id )
 
         if (error) {
           setError('Failed to fetch reminders');
@@ -36,7 +36,7 @@ export default function RemindersPage() {
           return;
         }
 
-        setReminders(data || []);
+        setReminders(data);
       } catch (err) {
         setError('An unexpected error occurred');
         console.error('Error:', err);
@@ -65,6 +65,6 @@ export default function RemindersPage() {
   }
 
   return (
-    <RemindersScreen data={reminders} isLoading={isLoading} error={error} />
+    <RemindersScreen initialData={reminders} initialLoading={isLoading} />
   );
 }

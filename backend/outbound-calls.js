@@ -55,16 +55,10 @@ export function setupOutboundRoutes(app, wss) {
     }
 
     try {
-      // Get the base URL (prefer PUBLIC_URL if available, or construct from request)
-      const baseUrl = process.env.PUBLIC_URL || 
-                      (req.secure ? 'https' : 'http') + '://' + req.headers.host;
       
-      // For local development, ensure we're using HTTP
-      const finalBaseUrl = baseUrl.startsWith('https://localhost') ? 
-                          baseUrl.replace('https://', 'http://') : baseUrl;
       
       // Create the TwiML URL
-      const twimlUrl = `${finalBaseUrl}/outbound-call-twiml?prompt=${encodeURIComponent(prompt || '')}`;
+      const twimlUrl = `http://localhost:8000/outbound-call-twiml?prompt=${encodeURIComponent(prompt || '')}`;
       
       console.log(`[Twilio] Using TwiML URL: ${twimlUrl}`);
       

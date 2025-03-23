@@ -91,6 +91,7 @@ export default function DashboardHome() {
   };
 
   const handleAICall = async () => {
+    console.log('calling')
     setIsCalling(true);
     try {
       const res = await makeAIAssistantCall(user?.phoneNumbers[0].phoneNumber ?? '');

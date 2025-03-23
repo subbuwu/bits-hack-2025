@@ -18,6 +18,7 @@ const server = http.createServer(app);
 // Set up middleware
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Create WebSocket server
@@ -39,13 +40,6 @@ setupOutboundRoutes(app, wss);
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`[Server] Listening on port ${PORT}`);
   
-  // Print Ngrok instructions if not using a public URL
-  if (!process.env.PUBLIC_URL) {
-    console.log('[Server] For Twilio to access your local server, use ngrok:');
-    console.log(`[Server] Install: npm install -g ngrok`);
-    console.log(`[Server] Run: ngrok http ${PORT}`);
-    console.log('[Server] Then set the PUBLIC_URL env variable to your ngrok URL');
-  }
 });
 
 // Handle unhandled promise rejections
