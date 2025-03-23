@@ -1,9 +1,8 @@
 import SettingsScreen from '@/components/Settings'
 import React from 'react'
 
-type Props = {}
 
-const SettingsPage = (props: Props) => {
+const SettingsPage = () => {
   return (
     <div>
         <SettingsScreen/>

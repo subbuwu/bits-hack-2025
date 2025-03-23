@@ -1,8 +1,6 @@
 import React from 'react'
 
-type Props = {}
-
-const HistoryPage = (props: Props) => {
+const HistoryPage = () => {
   return (
     <div>HistoryPage</div>
   )

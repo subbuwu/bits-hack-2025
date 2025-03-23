@@ -37,7 +37,7 @@ const MenuItem = ({ href, icon, label, badge, onClick }: MenuItemProps) => {
   const pathname = usePathname();
   const isActive = pathname === href;
   
-  const handleClick = (e: React.MouseEvent) => {
+  const handleClick = () => {
     if (onClick) {
       onClick();
     }
@@ -86,7 +86,7 @@ const SupportCard = () => (
   <div className="mx-4 my-4 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-100">
     <div className="flex flex-col gap-2">
       <span className="text-sm font-medium text-blue-800">Need assistance?</span>
-      <p className="text-xs text-blue-600">We're here to help with your eldercare needs</p>
+      <p className="text-xs text-blue-600">We&apos;re here to help with your eldercare needs</p>
       <Button className="mt-2 w-full bg-white text-blue-600 hover:bg-blue-50 border border-blue-200">
         Contact Support
       </Button>
@@ -100,8 +100,6 @@ interface DashboardSidebarProps {
 
 export function DashboardSidebar({ onClose }: DashboardSidebarProps) {
   const [greeting, setGreeting] = useState("Good day");
-  const [unreadNotifications, setUnreadNotifications] = useState(3);
-  const [pendingTasks, setPendingTasks] = useState(2);
   
   useEffect(() => {
     const hour = new Date().getHours();
@@ -122,7 +120,7 @@ export function DashboardSidebar({ onClose }: DashboardSidebarProps) {
       href: "/dashboard/reminders", 
       icon: <Bell className="h-5 w-5" />, 
       label: "Reminders",
-      badge: unreadNotifications > 0 && <Badge variant="destructive" className="rounded-full">{unreadNotifications}</Badge>
+      badge: <Badge variant="destructive" className="rounded-full"></Badge>
     },
     { href: "/dashboard/history", icon: <History className="h-5 w-5" />, label: "History" },
     { href: "/dashboard/diagnosis", icon: <FileText className="h-5 w-5" />, label: "Diagnosis" },

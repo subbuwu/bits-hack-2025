@@ -1,9 +1,7 @@
 import DashboardHome from '@/components/DashboardHome'
 import React from 'react'
 
-type Props = {}
-
-const DashboardPage = (props: Props) => {
+const DashboardPage = () => {
   return (
     <div>
       <DashboardHome/>

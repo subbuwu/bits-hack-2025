@@ -1,13 +1,12 @@
 {
-  "name": "elevenlabs-twilio-express",
+  "name": "eldercare-ai-backend",
   "version": "1.0.0",
-  "description": "Express server for ElevenLabs and Twilio integration",
-  "main": "app.js",
+  "description": "Backend server for ElderCare AI",
+  "main": "chat-server.js",
   "type": "module",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
-    "chat": "node chat-server.js"
+    "start": "node chat-server.js",
+    "dev": "nodemon chat-server.js"
   },
   "dependencies": {
     "@google-cloud/speech": "^7.0.1",

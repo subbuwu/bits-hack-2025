@@ -5,8 +5,8 @@ import {
   SidebarProvider, 
   SidebarInset,
 } from "@/components/ui/sidebar";
-import { SignedIn, SignedOut, UserButton, SignInButton } from "@clerk/nextjs";
-import { BellRing, Heart, MessageCircle, Menu } from "lucide-react";
+import { UserButton } from "@clerk/nextjs";
+import {  Menu } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 

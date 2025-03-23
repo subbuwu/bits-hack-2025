@@ -1,17 +1,13 @@
 'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { 
-  Bell, 
-  Calendar, 
   Heart, 
-  Pill, 
   MessageCircle, 
   Phone, 
-  ChevronRight,
   LifeBuoy,
-  Clock,
+
   Activity,
   AlertCircle,
   ThumbsUp,
@@ -52,13 +48,7 @@ const healthTips = [
   }
 ];
 
-// Sample upcoming reminders
-const upcomingReminders = [
-  { time: "8:00 AM", title: "Blood pressure medication", type: "medication" },
-  { time: "9:30 AM", title: "Doctor's appointment", type: "appointment" },
-  { time: "12:00 PM", title: "Lunch + diabetes medication", type: "medication" },
-  { time: "3:00 PM", title: "Walk for 15 minutes", type: "activity" },
-];
+
 
 export default function DashboardHome() {
   const [currentTipIndex, setCurrentTipIndex] = useState<number>(0);
@@ -132,7 +122,7 @@ export default function DashboardHome() {
                       >
                         <Button className="w-full px-12 py-6 cursor-pointer text-lg font-medium bg-blue-600 hover:bg-blue-700 rounded-2xl shadow-md" onClick={handleAICall}> 
                           <Phone className="mr-3 h-6 w-6" />
-                          Call AI Assistant
+                          {isCalling ? "Call On Progress..." : "Call AI Assistant"}
                         </Button>
                       </motion.div>
                       
@@ -203,7 +193,7 @@ export default function DashboardHome() {
                   </span>
                 </div>
                 <p className="text-lg text-slate-700 mb-6 text-center">
-                  "{currentTip.tip}"
+                  {currentTip.tip}
                 </p>
                 <Button 
                   onClick={getNextTip} 

@@ -1,13 +1,11 @@
 'use client'
-import { UserButton, SignedIn, SignInButton, SignedOut, SignUpButton, SignUp } from '@clerk/nextjs'
+import { UserButton, SignedIn, SignedOut, SignUpButton } from '@clerk/nextjs'
 import React, { useState, useEffect } from 'react'
 import {  LayoutDashboard } from 'lucide-react'
 import Link from 'next/link'
 
-type Props = {}
 
-const Navbar = (props: Props) => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+const Navbar = () => {
   const [scrolled, setScrolled] = useState(false)
 
   // Handle scroll effect
@@ -71,30 +69,7 @@ const Navbar = (props: Props) => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className='md:hidden absolute top-16 left-0 right-0 backdrop-blur-lg bg-white/90 shadow-lg py-4 px-6 z-50 border-b border-neutral-100'>
-          <nav className='flex flex-col space-y-2'>
-            
-            <SignedOut>
-              <div className='pt-4 border-t border-neutral-200 mt-2'>
-                <SignUpButton >  
-                  <button className="w-full py-3 cursor-pointer rounded-xl font-medium bg-gradient-to-r from-[#a071f9] to-[#573c9d] text-white hover:shadow-md transition duration-200">
-                    Sign Up
-                  </button>
-                </SignUpButton>
-              </div>
-            </SignedOut>
-            
-            <SignedIn>
-              <div className='pt-4 border-t border-neutral-200 mt-2 flex items-center justify-between'>
-                <span className='text-neutral-600 font-medium'>Your Account</span>
-                <UserButton afterSignOutUrl="/" />
-              </div>
-            </SignedIn>
-          </nav>
-        </div>
-      )}
+
     </header>
   )
 }

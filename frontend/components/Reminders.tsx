@@ -117,10 +117,11 @@ export default function RemindersScreen({ initialData, initialLoading = false }:
       toast.success("Reminder deleted successfully")
     } catch (err) {
       toast.error("Failed to delete reminder")
+      console.log(err)
     }
   };
 
-  const handleCompleteReminder = async (id: string) => {
+  const handleCompleteReminder = async () => {
     toast.success("Reminder marked as complete")
     // Implement completion logic here if needed
   };
@@ -262,7 +263,7 @@ export default function RemindersScreen({ initialData, initialLoading = false }:
                         variant="outline" 
                         size="sm" 
                         className="border-sky-200 text-sky-600 hover:bg-sky-50"
-                        onClick={() => handleCompleteReminder(reminder.id)}
+                        onClick={handleCompleteReminder}
                       >
                         Complete
                       </Button>
